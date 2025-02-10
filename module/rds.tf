@@ -5,7 +5,7 @@ resource "aws_rds_cluster" "aurora_serverless" {
   master_username         = var.db_master_username
   master_password         = var.db_master_password
   skip_final_snapshot     = true
-  database_name           = "opencorporatedb"
+  database_name           = var.database_name
   backup_retention_period = 7
 }
 
@@ -16,38 +16,18 @@ resource "aws_rds_cluster_instance" "aurora_instance" {
   publicly_accessible = false  
 }
 
-resource "aws_secretsmanager_secret" "db_password_read" {
-  name = "db_password_read_v2"
+resource "aws_secretsmanager_secret" "db_secret" {
+  name = "aurora-db-credentials"
 }
 
-resource "aws_secretsmanager_secret_version" "db_password_read_version" {
-  secret_id     = aws_secretsmanager_secret.db_password_read.id
+resource "aws_secretsmanager_secret_version" "db_secret_version" {
+  secret_id     = aws_secretsmanager_secret.db_secret.id
   secret_string = jsonencode({
-    username = var.db_username_read
-    password = var.db_password_read
+    username = var.db_master_username  
+    password = var.db_master_password  
   })
-}
-
-resource "aws_secretsmanager_secret" "db_password_write" {
-  name = "db_password_write_v2"
-}
-
-resource "aws_secretsmanager_secret_version" "db_password_write_version" {
-  secret_id     = aws_secretsmanager_secret.db_password_write.id
-  secret_string = jsonencode({
-    username = var.db_username_write
-    password = var.db_password_write
-  })
+  
 }
 
 
-resource "aws_secretsmanager_secret" "db_master_password" {
-  name = "db_master_password"  # Name of the secret
-}
 
-resource "aws_secretsmanager_secret_version" "db_master_password_version" {
-  secret_id     = aws_secretsmanager_secret.db_master_password.id
-  secret_string = jsonencode({
-    password = var.db_master_password  # Referencing the password variable
-  })
-}
