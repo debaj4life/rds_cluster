@@ -87,6 +87,10 @@ Defines variables to be used across the configuration. These include parameters 
 ## Adhering to Best Practices:
 #### Sensitive Data: 
 We store the master password in AWS Secrets Manager instead of hardcoding it in Terraform variables to ensure security.
+#### To retrieve your password use the below command line.
+```
+aws secretsmanager get-secret-value --secret-id {password} --query SecretString --output text
+```
 
 #### Modularity: 
 The code is modularized for better readability and reuse, making it easier to maintain and scale.
