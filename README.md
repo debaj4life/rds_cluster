@@ -91,6 +91,10 @@ We store the master password in AWS Secrets Manager instead of hardcoding it in 
 ```
 aws secretsmanager get-secret-value --secret-id {password} --query SecretString --output text
 ```
+Result
+```
+{“password”:“your_master_password”}
+```
 
 #### Modularity: 
 The code is modularized for better readability and reuse, making it easier to maintain and scale.
