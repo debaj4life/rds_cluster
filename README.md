@@ -91,7 +91,7 @@ We store the master password in AWS Secrets Manager instead of hardcoding it in 
 ```
 aws secretsmanager get-secret-value --secret-id {password} --query SecretString --output text
 ```
-Result
+#### Result
 ```
 {“password”:“your_master_password”}
 ```
