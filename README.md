@@ -1,7 +1,7 @@
 # rds_cluster
 
 ## Terraform Aurora MySQL Cluster Setup
-This Terraform project sets up an Amazon Aurora MySQL Cluster with the following components:
+#### This Terraform project sets up an Amazon Aurora MySQL Cluster with the following components:
 Aurora RDS cluster with provisioned instances.
 Creation of database users (read-only and write-only users) via Terraform.
 Storing master credentials securely using AWS Secrets Manager.
